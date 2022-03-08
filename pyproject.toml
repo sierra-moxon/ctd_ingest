@@ -6,6 +6,11 @@ authors = ["Sierra Taylor Moxon <sierra.taylor@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+koza = "^0.1.5"
+kghub_downloader = "^0.1.13"
+biolink_model_pydantic = "^0.1.6"
+linkml-runtime = "^1.1.20"
+biolink-model = "^2.2.13"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
