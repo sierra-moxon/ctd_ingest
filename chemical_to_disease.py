@@ -34,6 +34,9 @@ if row['DirectEvidence'] in ['marker/mechanism', 'therapeutic']:
         "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
         "source": "infores:ctd"
     }
+    print(chemical)
+    print(disease)
+    print(association)
     koza_app.writer.write_node(chemical)
-    koza_app.writer.write(disease)
+    koza_app.writer.write_node(disease)
     koza_app.writer.write_edge(association)
