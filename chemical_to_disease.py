@@ -35,4 +35,5 @@ if row['DirectEvidence'] in ['marker/mechanism', 'therapeutic']:
         "source": "infores:ctd"
     }
     koza_app.writer.write_node(chemical)
+    koza_app.writer.write(disease)
     koza_app.writer.write_edge(association)
