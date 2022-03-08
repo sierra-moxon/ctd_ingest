@@ -2,9 +2,7 @@ import uuid
 
 from koza.cli_runner import koza_app
 
-source_name = "ctd_chemical_to_disease"
-
-row = koza_app.get_row(source_name)
+row = koza_app.get_row()
 
 if row['DirectEvidence'] in ['marker/mechanism', 'therapeutic']:
 
