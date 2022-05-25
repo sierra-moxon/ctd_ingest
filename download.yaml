@@ -1,0 +1,11 @@
+---
+# ctd
+-
+  url: http://ctdbase.org/reports/CTD_chemicals_diseases.tsv.gz
+  local_name: ctd_chemical_to_gene/ctd/CTD_chemicals_diseases.tsv.gz
+  tag: ctd_chemical_to_disease
+
+-
+  url: http://ctdbase.org/reports/CTD_chem_gene_ixns.tsv.gz
+  local_name: ctd_chemical_to_gene/ctd/CTD_chem_gene_ixns.tsv.gz
+  tag: ctd_chemical_gene_ixns
