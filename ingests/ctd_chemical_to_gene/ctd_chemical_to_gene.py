@@ -2,11 +2,11 @@ import uuid
 
 from koza.cli_runner import koza_app
 
-source_name = "ctd_chemical_to_disease"
+source_name = "ctd_chemical_to_gene"
 
 row = koza_app.get_row(source_name)
 
-if row['DirectEvidence'] in ['marker/mechanism', 'therapeutic']:
+if row['InteractionActions'] == 'decreases^expression':
 
     chemical = {
         "id": 'MESH:' + row['ChemicalID'],
@@ -14,29 +14,27 @@ if row['DirectEvidence'] in ['marker/mechanism', 'therapeutic']:
         "source": 'infores:ctd'
     }
 
-    disease = {"id": row['DiseaseID'],
-               "name": row['DiseaseID'],
-               "source": "infores:ctd"}
+    gene = {"id": 'NCBIGene:' + row['GeneID'],
+            "name": row['GeneSymbol'],
+            "in_taxon": row['OrganismID'],
+            "source": "infores:ctd"}
 
-    if row['DirectEvidence'] == 'marker/mechanism':
-        predicate = "biolink:biomarker_for"
-        relation = "RO:0002607"
-    elif row['DirectEvidence'] == 'therapeutic':
-        predicate = "treats"
-        relation = "RO:0002606"
+    if row['InteractionActions'] == 'decreases^expression':
+        predicate = "biolink:affects"
+        object_aspect = "expression"
+        object_direction = "decrease"
 
     association = {
         "id": "uuid:" + str(uuid.uuid1()),
         "subject": chemical.get("id"),
         "predicate": predicate,
-        "object": disease.get("id"),
-        "relation": relation,
+        "object": "NCBIGene:"+gene.get("id"),
         "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
         "source": "infores:ctd"
     }
     print(chemical)
-    print(disease)
+    print(gene)
     print(association)
     koza_app.writer.write_node(chemical)
-    koza_app.writer.write_node(disease)
+    koza_app.writer.write_node(gene)
     koza_app.writer.write_edge(association)

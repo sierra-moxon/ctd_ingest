@@ -1,10 +1,7 @@
-name: 'ctd_chemical_to_gene'
+name: 'ctd_chemical_to_disease'
 
 files:
-  - './CTD_chem_gene_ixns.tsv.gz'
-
-# Specify compression if necessary
-compression: 'gzip'
+  - './CTD_chemicals_diseases.tsv.gz'
 
 # Format options csv, json
 format: 'csv'
@@ -21,13 +18,12 @@ columns:
   - ChemicalName
   - ChemicalID
   - CasRN
-  - GeneSymbol
-  - GeneID
-  - GeneForms
-  - Organism
-  - OrgnaismID
-  - Interaction
-  - InteractionActions
+  - DiseaseName
+  - DiseaseID
+  - DirectEvidence
+  - InferenceGeneSymbol
+  - InferenceScore
+  - OmimIDs
   - PubMedIDs
 
 
