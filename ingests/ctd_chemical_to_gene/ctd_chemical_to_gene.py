@@ -6,6 +6,7 @@ source_name = "ctd_chemical_to_gene"
 
 row = koza_app.get_row(source_name)
 
+
 if row['InteractionActions'] == 'decreases^expression':
 
     chemical = {
