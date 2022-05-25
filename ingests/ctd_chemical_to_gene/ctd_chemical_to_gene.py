@@ -13,7 +13,7 @@ interaction_actions = [a for a in row['InteractionActions'].split("|")]
 for action in interaction_actions:
     qualified_action = action.split("^")
     if qualified_action[1] == 'cotreatment' or qualified_action[1] == 'response to substance':
-        pass
+        continue
     aspect = qualified_action[1]
     direction = qualified_action[0]
 

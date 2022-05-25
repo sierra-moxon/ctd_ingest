@@ -35,3 +35,6 @@ def merge(
     """
     cli_utils.merge_files(input_dir=input_dir, output_dir=output_dir)
 
+
+if __name__ == "__main__":
+    typer_app()

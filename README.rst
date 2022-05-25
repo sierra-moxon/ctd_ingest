@@ -14,6 +14,11 @@ poetry install
 poetry run koza transform --source ingests/ctd_chemical_to_gene/ctd_chemical_to_gene.yaml --output-format tsv
 ```
 
+```sh
+poetry install
+poetry run python ctd_ingest/main.py transform --help
+```
+
 
 Next:
 load to neo4j with kgx
