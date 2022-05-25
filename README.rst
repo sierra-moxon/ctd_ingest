@@ -19,6 +19,11 @@ poetry install
 poetry run python ctd_ingest/main.py merge --input-dir output --output-dir output/merged
 ```
 
+```sh
+poetry install
+poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv
+```
+
 
 Next:
 load to neo4j with kgx
