@@ -20,13 +20,15 @@ for action in interaction_actions:
     chemical = {
         "id": 'MESH:' + row['ChemicalID'],
         "name": row['ChemicalName'],
-        "source": 'infores:ctd'
+        "source": 'infores:ctd',
+        "category": "biolink:ChemicalEntity"
     }
 
     gene = {"id": row['GeneID'],
             "name": row['GeneSymbol'],
             "in_taxon": row['OrganismID'],
-            "source": "infores:ctd"}
+            "source": "infores:ctd",
+            "category": "biolink:Gene"}
 
     predicate = "biolink:affects"
     object_aspect = aspect

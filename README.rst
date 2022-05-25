@@ -16,7 +16,7 @@ poetry run koza transform --source ingests/ctd_chemical_to_gene/ctd_chemical_to_
 
 ```sh
 poetry install
-poetry run python ctd_ingest/main.py transform --help
+poetry run python ctd_ingest/main.py merge --input-dir output --output-dir output/merged
 ```
 
 
