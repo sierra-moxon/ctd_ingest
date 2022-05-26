@@ -18,7 +18,7 @@ parser.add_argument('--nodes', help='file with nodes in TSV format')
 parser.add_argument('--edges', help='file with edges in TSV format')
 parser.add_argument('--uri', help='URI/URL for Neo4j (including port)', default='localhost:7474')
 parser.add_argument('--username', help='username', default='neo4j')
-parser.add_argument('--password', help='password', default='demo')
+parser.add_argument('--password', help='password', default='s3cr3t')
 args = parser.parse_args()
 
 if args.nodes is None and args.edges is None:
@@ -43,4 +43,5 @@ output_args = {
 }
 # Initialize Transformer
 t = Transformer()
+print ("made a transformer")
 t.transform(input_args, output_args)

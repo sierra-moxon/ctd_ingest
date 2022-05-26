@@ -9,23 +9,25 @@ prereqs:
 
 For local development:
 
+transform CTD csv to KGX format:
 ```sh
 poetry install
 poetry run koza transform --source ingests/ctd_chemical_to_gene/ctd_chemical_to_gene.yaml --output-format tsv
 ```
 
+remove duplicate nodes? - results in some weird top level rows:
 ```sh
 poetry install
 poetry run python ctd_ingest/main.py merge --input-dir output --output-dir output/merged
 ```
 
+load to neo4j with kgx:
 ```sh
-poetry install
-poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv
+docker run -p7474:7474 -p7687:7687 -e NEO4J_AUTH=neo4j/s3cr3t neo4j
+poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv --uri bolt://localhost:7687
 ```
 
 
 Next:
-load to neo4j with kgx
 spin up a TRAPI endpoint with plater
 
