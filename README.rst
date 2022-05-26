@@ -27,7 +27,10 @@ docker run -p7474:7474 -p7687:7687 -e NEO4J_AUTH=neo4j/s3cr3t neo4j
 poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv --uri bolt://localhost:7687
 ```
 
-
-Next:
 spin up a TRAPI endpoint with plater
+* fork plater
+* fill out .env
+* ./main.sh
+navigate to localhost:port/docs to see TRAPI endpoints
+
 
