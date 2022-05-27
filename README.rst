@@ -24,6 +24,7 @@ poetry run python ctd_ingest/main.py merge --input-dir output --output-dir outpu
 load to neo4j with kgx:
 ```sh
 docker run -p7474:7474 -p7687:7687 -e NEO4J_AUTH=neo4j/s3cr3t neo4j
+docker run -p7474:7474 -p7687:7687  --env NEO4J_AUTH=none neo4j
 poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv --uri bolt://localhost:7687
 ```
 
@@ -31,6 +32,8 @@ spin up a TRAPI endpoint with plater
 * fork plater
 * fill out .env
 * ./main.sh
+* make sure the servers param in openapi has the http version else defaults to https
+* make sure to access via localhost not 0.0.0.0 (matching the servers param)
 navigate to localhost:port/docs to see TRAPI endpoints
 
 
