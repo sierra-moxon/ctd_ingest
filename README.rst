@@ -31,9 +31,10 @@ poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nod
 spin up a TRAPI endpoint with plater
 * fork plater
 * fill out .env
-* ./main.sh
+* fill out openapi yaml
 * make sure the servers param in openapi has the http version else defaults to https
 * make sure to access via localhost not 0.0.0.0 (matching the servers param)
+* ./main.sh
 navigate to localhost:port/docs to see TRAPI endpoints
 
 
