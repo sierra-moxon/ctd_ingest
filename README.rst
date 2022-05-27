@@ -19,12 +19,15 @@ remove duplicate nodes? - results in some weird top level rows:
 ```sh
 poetry install
 poetry run python ctd_ingest/main.py merge --input-dir output --output-dir output/merged
+poetry run kgx transform --transform-config neo4j-transform.yaml
 ```
 
 load to neo4j with kgx:
 ```sh
-docker run -p7474:7474 -p7687:7687 -e NEO4J_AUTH=neo4j/s3cr3t neo4j
-docker run -p7474:7474 -p7687:7687  --env NEO4J_AUTH=none neo4j
+
+docker build -t neo4j-plater .
+docker images
+docker run -p7474:7474 -p7687:7687  --env NEO4J_AUTH=none --name neo4j-plater 08d381cea73a
 poetry run python ctd_ingest/load_neo.py --nodes output/ctd_chemical_to_gene_nodes.tsv --edges output/ctd_chemical_to_gene_edges.tsv --uri bolt://localhost:7687
 ```
 
