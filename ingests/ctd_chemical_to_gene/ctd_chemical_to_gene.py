@@ -24,7 +24,7 @@ for action in interaction_actions:
         "category": "biolink:ChemicalEntity"
     }
 
-    gene = {"id": row['GeneID'],
+    gene = {"id": "NCBIGene:" + row['GeneID'],
             "name": row['GeneSymbol'],
             "in_taxon": row['OrganismID'],
             "source": "infores:ctd",
