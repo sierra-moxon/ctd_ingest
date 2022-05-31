@@ -17,6 +17,8 @@ else:
         qualified_action = action.split("^")
         if qualified_action[1] == 'cotreatment' or qualified_action[1] == 'response to substance':
             continue
+        if qualified_action[1] == 'binding':
+            
         aspect = qualified_action[1]
         if qualified_action[0] == "increases":
             qualified_action = "increased"
@@ -35,7 +37,7 @@ else:
                 "name": row['GeneSymbol'],
                 "in_taxon": row['OrganismID'],
                 "source": "infores:ctd",
-            "   category": "biolink:Gene"}
+                "category": "biolink:Gene"}
 
         predicate = "biolink:affects"
         object_aspect = aspect
@@ -46,6 +48,7 @@ else:
                 "id": "uuid:" + str(uuid.uuid1()),
                 "subject": chemical.get("id"),
                 "predicate": predicate,
+                "qualified_predicate": "causes",
                 "object": gene.get("id"),
                 "object_aspect": object_aspect,
                 "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
@@ -56,6 +59,7 @@ else:
                 "id": "uuid:" + str(uuid.uuid1()),
                 "subject": chemical.get("id"),
                 "predicate": predicate,
+                "qualified_predicate": "causes",
                 "object": gene.get("id"),
                 "object_aspect": object_aspect,
                 "object_direction": object_direction,
