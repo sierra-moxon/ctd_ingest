@@ -15,16 +15,13 @@ if len(interaction_actions) > 1:
 else:
     for action in interaction_actions:
         qualified_action = action.split("^")
-        if qualified_action[1] == 'cotreatment' or qualified_action[1] == 'response to substance':
-            continue
-        if qualified_action[1] == 'binding':
-            
-        aspect = qualified_action[1]
+        object_aspect = qualified_action[1]
         if qualified_action[0] == "increases":
-            qualified_action = "increased"
-        if qualified_action[0] == "decreases":
-            qualified_action = "decreased"
-        direction = qualified_action
+            object_direction = "increased"
+        elif qualified_action[0] == "decreases":
+            object_direction = "decreased"
+        else:
+            object_direction = qualified_action[0]
 
         chemical = {
             "id": 'MESH:' + row['ChemicalID'],
@@ -39,22 +36,29 @@ else:
                 "source": "infores:ctd",
                 "category": "biolink:Gene"}
 
-        predicate = "biolink:affects"
-        object_aspect = aspect
-        object_direction = direction
+        if qualified_action[1] == 'cotreatment' or qualified_action[1] == 'response to substance':
+            continue
 
-        if object_direction == 'affects':
+        if qualified_action[1] == 'binding':
+            predicate = "biolink:physically_interacts_with"
+
             association = {
                 "id": "uuid:" + str(uuid.uuid1()),
                 "subject": chemical.get("id"),
                 "predicate": predicate,
-                "qualified_predicate": "causes",
                 "object": gene.get("id"),
-                "object_aspect": object_aspect,
+                "object_direction": object_direction,
                 "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
                 "source": "infores:ctd"
             }
-        else:
+
+            koza_app.writer.write_node(chemical)
+            koza_app.writer.write_node(gene)
+            koza_app.writer.write_edge(association)
+
+            predicate = "biolink:affects"
+            object_aspect = "activity"
+
             association = {
                 "id": "uuid:" + str(uuid.uuid1()),
                 "subject": chemical.get("id"),
@@ -66,6 +70,36 @@ else:
                 "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
                 "source": "infores:ctd"
             }
-        koza_app.writer.write_node(chemical)
-        koza_app.writer.write_node(gene)
-        koza_app.writer.write_edge(association)
+
+            koza_app.writer.write_node(chemical)
+            koza_app.writer.write_node(gene)
+            koza_app.writer.write_edge(association)
+
+        else:
+            if object_direction == 'affects':
+                association = {
+                    "id": "uuid:" + str(uuid.uuid1()),
+                    "subject": chemical.get("id"),
+                    "predicate": "affects",
+                    "qualified_predicate": "causes",
+                    "object": gene.get("id"),
+                    "object_aspect": object_aspect,
+                    "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
+                    "source": "infores:ctd"
+                }
+            else:
+                association = {
+                    "id": "uuid:" + str(uuid.uuid1()),
+                    "subject": chemical.get("id"),
+                    "predicate": "affects",
+                    "qualified_predicate": "causes",
+                    "object": gene.get("id"),
+                    "object_aspect": object_aspect,
+                    "object_direction": object_direction,
+                    "publications": ["PMID:" + p for p in row['PubMedIDs'].split("|")],
+                    "source": "infores:ctd"
+                }
+            koza_app.writer.write_node(chemical)
+            koza_app.writer.write_node(gene)
+            koza_app.writer.write_edge(association)
+
